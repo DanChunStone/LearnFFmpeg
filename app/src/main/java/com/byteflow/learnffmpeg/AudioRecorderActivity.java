@@ -39,7 +39,7 @@ public class AudioRecorderActivity extends AppCompatActivity implements AudioRec
     private static final String[] REQUEST_PERMISSIONS = {
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-    };
+            };
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 1;
     protected FFMediaRecorder mFFMediaRecorder;
     private CaptureLayout mRecordedButton;
@@ -168,12 +168,12 @@ public class AudioRecorderActivity extends AppCompatActivity implements AudioRec
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 File file = new File(mOutUrl);
                 Uri uri = null;
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                    uri = FileProvider.getUriForFile(AudioRecorderActivity.this,"com.byteflow.learnffmpeg.fileprovider", file);
-                }else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    uri = FileProvider.getUriForFile(AudioRecorderActivity.this, "com.byteflow.learnffmpeg.fileprovider", file);
+                } else {
                     uri = Uri.fromFile(file);
                 }
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 intent.setDataAndType(uri, "audio/*");
                 startActivity(intent);

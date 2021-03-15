@@ -59,7 +59,6 @@ import java.util.Locale;
 
 import static com.byteflow.learnffmpeg.media.MediaRecorderContext.IMAGE_FORMAT_I420;
 import static com.byteflow.learnffmpeg.media.MediaRecorderContext.RECORDER_TYPE_AV;
-import static com.byteflow.learnffmpeg.media.MediaRecorderContext.RECORDER_TYPE_SINGLE_VIDEO;
 import static com.byteflow.learnffmpeg.view.RecordedButton.BUTTON_STATE_ONLY_RECORDER;
 
 
@@ -70,7 +69,7 @@ public class AVRecorderActivity extends AppCompatActivity implements Camera2Fram
     private static final String[] REQUEST_PERMISSIONS = {
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-    };
+            };
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 1;
     private RelativeLayout mSurfaceViewRoot;
     protected FFMediaRecorder mMediaRecorder;
@@ -216,7 +215,7 @@ public class AVRecorderActivity extends AppCompatActivity implements Camera2Fram
         ViewTreeObserver treeObserver = mSurfaceViewRoot.getViewTreeObserver();
         treeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
-            public boolean  onPreDraw() {
+            public boolean onPreDraw() {
                 mSurfaceViewRoot.getViewTreeObserver().removeOnPreDrawListener(this);
                 mRootViewSize = new Size(mSurfaceViewRoot.getMeasuredWidth(), mSurfaceViewRoot.getMeasuredHeight());
                 updateGLSurfaceViewSize(mCamera2Wrapper.getPreviewSize());
@@ -303,12 +302,12 @@ public class AVRecorderActivity extends AppCompatActivity implements Camera2Fram
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 File file = new File(mOutUrl);
                 Uri uri = null;
-                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
-                    uri = FileProvider.getUriForFile(AVRecorderActivity.this,"com.byteflow.learnffmpeg.fileprovider", file);
-                }else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    uri = FileProvider.getUriForFile(AVRecorderActivity.this, "com.byteflow.learnffmpeg.fileprovider", file);
+                } else {
                     uri = Uri.fromFile(file);
                 }
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 intent.setDataAndType(uri, "video/*");
                 startActivity(intent);
@@ -453,7 +452,7 @@ public class AVRecorderActivity extends AppCompatActivity implements Camera2Fram
             case R.id.switch_ratio_btn:
                 showChangeSizeDialog();
                 break;
-                default:
+            default:
         }
     }
 

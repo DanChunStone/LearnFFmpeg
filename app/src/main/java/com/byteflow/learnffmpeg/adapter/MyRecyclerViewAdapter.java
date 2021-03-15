@@ -35,7 +35,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     public void safeNotifyItemChanged(int index) {
-        if(index > 0)
+        if (index > 0)
             notifyItemChanged(index);
     }
 

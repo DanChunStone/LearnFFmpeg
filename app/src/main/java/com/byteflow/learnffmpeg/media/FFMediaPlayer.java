@@ -3,7 +3,7 @@ package com.byteflow.learnffmpeg.media;
 import android.view.Surface;
 
 public class FFMediaPlayer {
-    //gl render type
+    // gl render type
     public static final int VIDEO_GL_RENDER = 0;
     public static final int AUDIO_GL_RENDER = 1;
     public static final int VR_3D_GL_RENDER = 2;
@@ -12,19 +12,19 @@ public class FFMediaPlayer {
         System.loadLibrary("learn-ffmpeg");
     }
 
-    public static final int MSG_DECODER_INIT_ERROR      = 0;
-    public static final int MSG_DECODER_READY           = 1;
-    public static final int MSG_DECODER_DONE            = 2;
-    public static final int MSG_REQUEST_RENDER          = 3;
-    public static final int MSG_DECODING_TIME           = 4;
+    public static final int MSG_DECODER_INIT_ERROR = 0;
+    public static final int MSG_DECODER_READY = 1;
+    public static final int MSG_DECODER_DONE = 2;
+    public static final int MSG_REQUEST_RENDER = 3;
+    public static final int MSG_DECODING_TIME = 4;
 
-    public static final int MEDIA_PARAM_VIDEO_WIDTH     = 0x0001;
-    public static final int MEDIA_PARAM_VIDEO_HEIGHT    = 0x0002;
-    public static final int MEDIA_PARAM_VIDEO_DURATION  = 0x0003;
+    public static final int MEDIA_PARAM_VIDEO_WIDTH = 0x0001;
+    public static final int MEDIA_PARAM_VIDEO_HEIGHT = 0x0002;
+    public static final int MEDIA_PARAM_VIDEO_DURATION = 0x0003;
 
-    public static final int VIDEO_RENDER_OPENGL         = 0;
-    public static final int VIDEO_RENDER_ANWINDOW       = 1;
-    public static final int VIDEO_RENDER_3D_VR          = 2;
+    public static final int VIDEO_RENDER_OPENGL = 0;
+    public static final int VIDEO_RENDER_ANWINDOW = 1;
+    public static final int VIDEO_RENDER_3D_VR = 2;
 
     private long mNativePlayerHandle = 0;
 
@@ -67,7 +67,7 @@ public class FFMediaPlayer {
     }
 
     private void playerEventCallback(int msgType, float msgValue) {
-        if(mEventCallback != null)
+        if (mEventCallback != null)
             mEventCallback.onPlayerEvent(msgType, msgValue);
 
     }
@@ -90,10 +90,14 @@ public class FFMediaPlayer {
 
     //for GL render
     public static native void native_OnSurfaceCreated(int renderType);
+
     public static native void native_OnSurfaceChanged(int renderType, int width, int height);
+
     public static native void native_OnDrawFrame(int renderType);
+
     //update MVP matrix
     public static native void native_SetGesture(int renderType, float xRotateAngle, float yRotateAngle, float scale);
+
     public static native void native_SetTouchLoc(int renderType, float touchX, float touchY);
 
     public interface EventCallback {

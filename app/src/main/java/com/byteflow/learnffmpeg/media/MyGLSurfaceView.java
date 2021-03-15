@@ -58,7 +58,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements ScaleGestureDetect
             mCurScale = mPreScale + (curSpan - preSpan) / 200;
         }
         mCurScale = Math.max(0.05f, Math.min(mCurScale, 80.0f));
-        if(mOnGestureCallback !=null) {
+        if (mOnGestureCallback != null) {
             mOnGestureCallback.onGesture(mXAngle, mYAngle, mCurScale);
         }
         return false;
@@ -81,8 +81,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements ScaleGestureDetect
         if (e.getPointerCount() == 1) {
             consumeClickEvent(e);
             long currentTimeMillis = System.currentTimeMillis();
-            if (currentTimeMillis - mLastMultiTouchTime > 200)
-            {
+            if (currentTimeMillis - mLastMultiTouchTime > 200) {
                 float y = e.getY();
                 float x = e.getX();
                 switch (e.getAction()) {
@@ -95,7 +94,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements ScaleGestureDetect
                 mPreviousY = y;
                 mPreviousX = x;
 
-                if(mOnGestureCallback !=null)
+                if (mOnGestureCallback != null)
                     mOnGestureCallback.onGesture(mXAngle, mYAngle, mCurScale);
             }
 
@@ -129,7 +128,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements ScaleGestureDetect
                 touchY = event.getY();
             {
                 //点击
-                if(mOnGestureCallback != null)
+                if (mOnGestureCallback != null)
                     mOnGestureCallback.onTouchLoc(touchX, touchY);
 
             }
@@ -141,6 +140,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements ScaleGestureDetect
 
     public interface OnGestureCallback {
         void onGesture(int xRotateAngle, int yRotateAngle, float scale);
+
         void onTouchLoc(float touchX, float touchY);
     }
 

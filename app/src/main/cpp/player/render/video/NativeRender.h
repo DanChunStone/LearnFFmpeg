@@ -11,13 +11,17 @@
 
 #include "VideoRender.h"
 
-class NativeRender : public VideoRender{
+class NativeRender : public VideoRender {
 
 public:
     NativeRender(JNIEnv *env, jobject surface);
+
     virtual ~NativeRender();
+
     virtual void Init(int videoWidth, int videoHeight, int *dstSize);
+
     virtual void RenderVideoFrame(NativeImage *pImage);
+
     virtual void UnInit();
 
 private:

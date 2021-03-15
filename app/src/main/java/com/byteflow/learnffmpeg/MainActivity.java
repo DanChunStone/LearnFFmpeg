@@ -1,11 +1,5 @@
 package com.byteflow.learnffmpeg;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -19,6 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.byteflow.learnffmpeg.adapter.MyRecyclerViewAdapter;
 import com.byteflow.learnffmpeg.media.FFMediaPlayer;
 import com.byteflow.learnffmpeg.util.CommonUtils;
@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-    };
+            };
     private static final int PERMISSION_REQUEST_CODE = 1;
-    private static  final String [] EXAMPLE_LIST = {
+    private static final String[] EXAMPLE_LIST = {
             "FFmpeg + ANativeWindow player",
             "FFmpeg + OpenGLES player",
             "FFmpeg + OpenSLES visual audio player",
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ((TextView)findViewById(R.id.text_view)).setText("FFmpeg 版本和编译配置信息\n\n" + FFMediaPlayer.GetFFmpegVersion());
+        ((TextView) findViewById(R.id.text_view)).setText("FFmpeg 版本和编译配置信息\n\n" + FFMediaPlayer.GetFFmpegVersion());
 
     }
 
@@ -149,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
                     case FF_AV_RECORDER:
                         startActivity(new Intent(MainActivity.this, AVRecorderActivity.class));
                         break;
-                        default:
-                            break;
+                    default:
+                        break;
                 }
 
                 dialog.cancel();

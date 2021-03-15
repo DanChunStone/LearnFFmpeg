@@ -18,21 +18,33 @@
 
 class OpenSLRender : public AudioRender {
 public:
-    OpenSLRender(){}
-    virtual ~OpenSLRender(){}
+    OpenSLRender() {}
+
+    virtual ~OpenSLRender() {}
+
     virtual void Init();
+
     virtual void ClearAudioCache();
+
     virtual void RenderAudioFrame(uint8_t *pData, int dataSize);
+
     virtual void UnInit();
 
 private:
     int CreateEngine();
+
     int CreateOutputMixer();
+
     int CreateAudioPlayer();
+
     int GetAudioFrameQueueSize();
+
     void StartRender();
+
     void HandleAudioFrameQueue();
+
     static void CreateSLWaitingThread(OpenSLRender *openSlRender);
+
     static void AudioPlayerCallback(SLAndroidSimpleBufferQueueItf bufferQueue, void *context);
 
     SLObjectItf m_EngineObj = nullptr;
@@ -46,7 +58,7 @@ private:
     std::queue<AudioFrame *> m_AudioFrameQueue;
 
     std::thread *m_thread = nullptr;
-    std::mutex   m_Mutex;
+    std::mutex m_Mutex;
     std::condition_variable m_Cond;
     volatile bool m_Exit = false;
 };

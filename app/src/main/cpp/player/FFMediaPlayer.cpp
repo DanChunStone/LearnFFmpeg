@@ -8,14 +8,15 @@
 #include <render/video/VRGLRender.h>
 #include "FFMediaPlayer.h"
 
-void FFMediaPlayer::Init(JNIEnv *jniEnv, jobject obj, char *url, int videoRenderType, jobject surface) {
+void
+FFMediaPlayer::Init(JNIEnv *jniEnv, jobject obj, char *url, int videoRenderType, jobject surface) {
     jniEnv->GetJavaVM(&m_JavaVM);
     m_JavaObj = jniEnv->NewGlobalRef(obj);
 
     m_VideoDecoder = new VideoDecoder(url);
     m_AudioDecoder = new AudioDecoder(url);
 
-    if(videoRenderType == VIDEO_RENDER_OPENGL) {
+    if (videoRenderType == VIDEO_RENDER_OPENGL) {
         m_VideoDecoder->SetVideoRender(VideoGLRender::GetInstance());
     } else if (videoRenderType == VIDEO_RENDER_ANWINDOW) {
         m_VideoRender = new NativeRender(jniEnv, surface);
@@ -36,22 +37,22 @@ void FFMediaPlayer::Init(JNIEnv *jniEnv, jobject obj, char *url, int videoRender
 
 void FFMediaPlayer::UnInit() {
     LOGCATE("FFMediaPlayer::UnInit");
-    if(m_VideoDecoder) {
+    if (m_VideoDecoder) {
         delete m_VideoDecoder;
         m_VideoDecoder = nullptr;
     }
 
-    if(m_VideoRender) {
+    if (m_VideoRender) {
         delete m_VideoRender;
         m_VideoRender = nullptr;
     }
 
-    if(m_AudioDecoder) {
+    if (m_AudioDecoder) {
         delete m_AudioDecoder;
         m_AudioDecoder = nullptr;
     }
 
-    if(m_AudioRender) {
+    if (m_AudioRender) {
         delete m_AudioRender;
         m_AudioRender = nullptr;
     }
@@ -60,45 +61,45 @@ void FFMediaPlayer::UnInit() {
 
     bool isAttach = false;
     GetJNIEnv(&isAttach)->DeleteGlobalRef(m_JavaObj);
-    if(isAttach)
+    if (isAttach)
         GetJavaVM()->DetachCurrentThread();
 
 }
 
 void FFMediaPlayer::Play() {
     LOGCATE("FFMediaPlayer::Play");
-    if(m_VideoDecoder)
+    if (m_VideoDecoder)
         m_VideoDecoder->Start();
 
-    if(m_AudioDecoder)
+    if (m_AudioDecoder)
         m_AudioDecoder->Start();
 }
 
 void FFMediaPlayer::Pause() {
     LOGCATE("FFMediaPlayer::Pause");
-    if(m_VideoDecoder)
+    if (m_VideoDecoder)
         m_VideoDecoder->Pause();
 
-    if(m_AudioDecoder)
+    if (m_AudioDecoder)
         m_AudioDecoder->Pause();
 
 }
 
 void FFMediaPlayer::Stop() {
     LOGCATE("FFMediaPlayer::Stop");
-    if(m_VideoDecoder)
+    if (m_VideoDecoder)
         m_VideoDecoder->Stop();
 
-    if(m_AudioDecoder)
+    if (m_AudioDecoder)
         m_AudioDecoder->Stop();
 }
 
 void FFMediaPlayer::SeekToPosition(float position) {
     LOGCATE("FFMediaPlayer::SeekToPosition position=%f", position);
-    if(m_VideoDecoder)
+    if (m_VideoDecoder)
         m_VideoDecoder->SeekToPosition(position);
 
-    if(m_AudioDecoder)
+    if (m_AudioDecoder)
         m_AudioDecoder->SeekToPosition(position);
 
 }
@@ -106,8 +107,7 @@ void FFMediaPlayer::SeekToPosition(float position) {
 long FFMediaPlayer::GetMediaParams(int paramType) {
     LOGCATE("FFMediaPlayer::GetMediaParams paramType=%d", paramType);
     long value = 0;
-    switch(paramType)
-    {
+    switch (paramType) {
         case MEDIA_PARAM_VIDEO_WIDTH:
             value = m_VideoDecoder != nullptr ? m_VideoDecoder->GetVideoWidth() : 0;
             break;
@@ -129,7 +129,7 @@ JNIEnv *FFMediaPlayer::GetJNIEnv(bool *isAttach) {
         return nullptr;
     }
     *isAttach = false;
-    status = m_JavaVM->GetEnv((void **)&env, JNI_VERSION_1_4);
+    status = m_JavaVM->GetEnv((void **) &env, JNI_VERSION_1_4);
     if (status != JNI_OK) {
         status = m_JavaVM->AttachCurrentThread(&env, nullptr);
         if (status != JNI_OK) {
@@ -150,20 +150,19 @@ JavaVM *FFMediaPlayer::GetJavaVM() {
 }
 
 void FFMediaPlayer::PostMessage(void *context, int msgType, float msgCode) {
-    if(context != nullptr)
-    {
+    if (context != nullptr) {
         FFMediaPlayer *player = static_cast<FFMediaPlayer *>(context);
         bool isAttach = false;
         JNIEnv *env = player->GetJNIEnv(&isAttach);
         LOGCATE("FFMediaPlayer::PostMessage env=%p", env);
-        if(env == nullptr)
+        if (env == nullptr)
             return;
         jobject javaObj = player->GetJavaObj();
-        jmethodID mid = env->GetMethodID(env->GetObjectClass(javaObj), JAVA_PLAYER_EVENT_CALLBACK_API_NAME, "(IF)V");
+        jmethodID mid = env->GetMethodID(env->GetObjectClass(javaObj),
+                                         JAVA_PLAYER_EVENT_CALLBACK_API_NAME, "(IF)V");
         env->CallVoidMethod(javaObj, mid, msgType, msgCode);
-        if(isAttach)
+        if (isAttach)
             player->GetJavaVM()->DetachCurrentThread();
-
     }
 }
 

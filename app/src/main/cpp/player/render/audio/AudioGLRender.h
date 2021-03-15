@@ -19,24 +19,32 @@ using namespace glm;
 
 class AudioGLRender : public BaseGLRender {
 public:
-    static AudioGLRender* GetInstance();
+    static AudioGLRender *GetInstance();
+
     static void ReleaseInstance();
 
     virtual void OnSurfaceCreated();
+
     virtual void OnSurfaceChanged(int w, int h);
+
     virtual void OnDrawFrame();
-    virtual void UpdateMVPMatrix(int angleX, int angleY, float scaleX, float scaleY){};
+
+    virtual void UpdateMVPMatrix(int angleX, int angleY, float scaleX, float scaleY) {};
+
     virtual void SetTouchLoc(float touchX, float touchY) {}
 
     void UpdateAudioFrame(AudioFrame *audioFrame);
 
 private:
     void Init();
+
     void UnInit();
-    AudioGLRender(){
+
+    AudioGLRender() {
         Init();
     }
-    ~AudioGLRender(){
+
+    ~AudioGLRender() {
         UnInit();
     }
 

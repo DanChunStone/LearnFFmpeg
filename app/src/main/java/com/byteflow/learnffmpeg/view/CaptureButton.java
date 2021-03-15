@@ -184,14 +184,14 @@ public class CaptureButton extends View {
 //            if (recorded_time < min_duration)
 //                captureLisenter.recordShort(recorded_time);//回调录制时间过短
 //            else
-                if(recorded_time < 500) {
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+            if (recorded_time < 500) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                captureLisenter.recordEnd(recorded_time);  //回调录制结束
+            }
+            captureLisenter.recordEnd(recorded_time);  //回调录制结束
         }
         resetRecordAnim();  //重制按钮状态
     }

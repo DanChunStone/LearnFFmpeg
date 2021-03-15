@@ -4,6 +4,7 @@
 
 #ifndef LEARNFFMPEG_MASTER_GLVRRENDER_H
 #define LEARNFFMPEG_MASTER_GLVRRENDER_H
+
 #include <thread>
 #include <ImageDef.h>
 #include "VideoRender.h"
@@ -25,17 +26,22 @@ using namespace std;
 #define RADIAN(angle) ((angle) / 180 * MATH_PI)
 #define TEXTURE_NUM 3
 
-class VRGLRender: public VideoRender, public BaseGLRender {
+class VRGLRender : public VideoRender, public BaseGLRender {
 public:
     virtual void Init(int videoWidth, int videoHeight, int *dstSize);
+
     virtual void RenderVideoFrame(NativeImage *pImage);
+
     virtual void UnInit();
 
     virtual void OnSurfaceCreated();
+
     virtual void OnSurfaceChanged(int w, int h);
+
     virtual void OnDrawFrame();
 
     static VRGLRender *GetInstance();
+
     static void ReleaseInstance();
 
     virtual void UpdateMVPMatrix(int angleX, int angleY, float scaleX, float scaleY);
@@ -49,10 +55,11 @@ public:
 
 private:
     VRGLRender();
+
     virtual ~VRGLRender();
 
     static std::mutex m_Mutex;
-    static VRGLRender* s_Instance;
+    static VRGLRender *s_Instance;
     GLuint m_ProgramObj = GL_NONE;
     GLuint m_TextureIds[TEXTURE_NUM];
     GLuint m_VaoId;

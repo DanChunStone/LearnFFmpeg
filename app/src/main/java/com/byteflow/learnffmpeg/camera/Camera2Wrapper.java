@@ -146,7 +146,7 @@ public class Camera2Wrapper {
 
             if (supportDefaultSize) {
                 mPreviewSize = mDefaultPreviewSize;
-            } else if(sameRatioSize != null) {
+            } else if (sameRatioSize != null) {
                 mPreviewSize = sameRatioSize;
             }
             //Log.d(TAG, "initCamera2Wrapper() called mPreviewSize[w,h] = [" + mPreviewSize.getWidth() + "," + mPictureSize.getHeight() + "]");
@@ -170,7 +170,7 @@ public class Camera2Wrapper {
             }
             if (supportDefaultSize) {
                 mPictureSize = mDefaultCaptureSize;
-            }  else if(sameRatioSize != null) {
+            } else if (sameRatioSize != null) {
                 mPictureSize = sameRatioSize;
             }
         }
@@ -181,7 +181,7 @@ public class Camera2Wrapper {
 
     private boolean checkCameraIdSupport(String cameraId) {
         boolean isSupported = false;
-        for (String id: mSupportCameraIds) {
+        for (String id : mSupportCameraIds) {
             if (cameraId.equals(id)) {
                 isSupported = true;
             }
@@ -340,7 +340,8 @@ public class Camera2Wrapper {
 
     private void createCaptureSession() {
         try {
-            if (null == mCameraDevice || null == mPreviewSurface || null == mCaptureImageReader) return;
+            if (null == mCameraDevice || null == mPreviewSurface || null == mCaptureImageReader)
+                return;
             mCameraDevice.createCaptureSession(Arrays.asList(mPreviewSurface, mCaptureImageReader.getSurface()),
                     mSessionStateCallback, mBackgroundHandler);
 

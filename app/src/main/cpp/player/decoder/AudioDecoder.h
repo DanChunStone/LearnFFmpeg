@@ -28,44 +28,46 @@ static const int AUDIO_DST_BIT_RATE = 64000;
 // ACC音频一帧采样数
 static const int ACC_NB_SAMPLES = 1024;
 
-class AudioDecoder : public DecoderBase{
+class AudioDecoder : public DecoderBase {
 
 public:
-    AudioDecoder(char *url){
+    AudioDecoder(char *url) {
         Init(url, AVMEDIA_TYPE_AUDIO);
     }
 
-    virtual ~AudioDecoder(){
+    virtual ~AudioDecoder() {
         UnInit();
     }
 
-    void SetAudioRender(AudioRender *audioRender)
-    {
+    void SetAudioRender(AudioRender *audioRender) {
         m_AudioRender = audioRender;
     }
 
-    static long GetAudioDecoderTimestampForAVSync(void* context);
+    static long GetAudioDecoderTimestampForAVSync(void *context);
 
 private:
     virtual void OnDecoderReady();
+
     virtual void OnDecoderDone();
+
     virtual void OnFrameAvailable(AVFrame *frame);
+
     virtual void ClearCache();
 
     const AVSampleFormat DST_SAMPLT_FORMAT = AV_SAMPLE_FMT_S16;
 
-    AudioRender  *m_AudioRender = nullptr;
+    AudioRender *m_AudioRender = nullptr;
 
     //audio resample context
-    SwrContext   *m_SwrContext = nullptr;
+    SwrContext *m_SwrContext = nullptr;
 
-    uint8_t      *m_AudioOutBuffer = nullptr;
+    uint8_t *m_AudioOutBuffer = nullptr;
 
     //number of sample per channel
-    int           m_nbSamples = 0;
+    int m_nbSamples = 0;
 
     //dst frame data size
-    int           m_DstFrameDataSze = 0;
+    int m_DstFrameDataSze = 0;
 };
 
 

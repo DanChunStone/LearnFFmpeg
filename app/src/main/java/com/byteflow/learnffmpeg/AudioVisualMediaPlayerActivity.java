@@ -32,11 +32,11 @@ import static com.byteflow.learnffmpeg.media.FFMediaPlayer.MSG_REQUEST_RENDER;
 import static com.byteflow.learnffmpeg.media.FFMediaPlayer.VIDEO_GL_RENDER;
 import static com.byteflow.learnffmpeg.media.FFMediaPlayer.VIDEO_RENDER_OPENGL;
 
-public class AudioVisualMediaPlayerActivity extends AppCompatActivity implements GLSurfaceView.Renderer, FFMediaPlayer.EventCallback{
+public class AudioVisualMediaPlayerActivity extends AppCompatActivity implements GLSurfaceView.Renderer, FFMediaPlayer.EventCallback {
     private static final String TAG = "MediaPlayerActivity";
     private static final String[] REQUEST_PERMISSIONS = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-    };
+            };
     private static final int PERMISSION_REQUEST_CODE = 1;
     private MyGLSurfaceView mVideoGLSurfaceView = null;
     private MyGLSurfaceView mAudioGLSurfaceView = null;
@@ -94,7 +94,7 @@ public class AudioVisualMediaPlayerActivity extends AppCompatActivity implements
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Log.d(TAG, "onStopTrackingTouch() called with: progress = [" + seekBar.getProgress() + "]");
-                if(mMediaPlayer != null) {
+                if (mMediaPlayer != null) {
                     mMediaPlayer.seekToPosition(mSeekBar.getProgress());
                     mIsTouch = false;
                 }
@@ -113,7 +113,7 @@ public class AudioVisualMediaPlayerActivity extends AppCompatActivity implements
         if (!hasPermissionsGranted(REQUEST_PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, REQUEST_PERMISSIONS, PERMISSION_REQUEST_CODE);
         } else {
-            if(mMediaPlayer != null)
+            if (mMediaPlayer != null)
                 mMediaPlayer.play();
         }
 
@@ -133,14 +133,14 @@ public class AudioVisualMediaPlayerActivity extends AppCompatActivity implements
     @Override
     protected void onPause() {
         super.onPause();
-        if(mMediaPlayer != null)
+        if (mMediaPlayer != null)
             mMediaPlayer.pause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mMediaPlayer != null)
+        if (mMediaPlayer != null)
             mMediaPlayer.unInit();
     }
 
@@ -179,7 +179,7 @@ public class AudioVisualMediaPlayerActivity extends AppCompatActivity implements
                         mAudioGLSurfaceView.requestRender();
                         break;
                     case MSG_DECODING_TIME:
-                        if(!mIsTouch)
+                        if (!mIsTouch)
                             mSeekBar.setProgress((int) msgValue);
                         break;
                     default:
@@ -193,7 +193,7 @@ public class AudioVisualMediaPlayerActivity extends AppCompatActivity implements
     private void onDecoderReady() {
         int videoWidth = (int) mMediaPlayer.getMediaParams(MEDIA_PARAM_VIDEO_WIDTH);
         int videoHeight = (int) mMediaPlayer.getMediaParams(MEDIA_PARAM_VIDEO_HEIGHT);
-        if(videoHeight * videoWidth != 0)
+        if (videoHeight * videoWidth != 0)
             mVideoGLSurfaceView.setAspectRatio(videoWidth, videoHeight);
 
         int duration = (int) mMediaPlayer.getMediaParams(MEDIA_PARAM_VIDEO_DURATION);

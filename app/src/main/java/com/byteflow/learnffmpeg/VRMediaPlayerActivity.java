@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.byteflow.learnffmpeg.R;
 import com.byteflow.learnffmpeg.media.FFMediaPlayer;
 import com.byteflow.learnffmpeg.media.MyGLSurfaceView;
 
@@ -33,16 +32,14 @@ import static com.byteflow.learnffmpeg.media.FFMediaPlayer.MSG_DECODER_INIT_ERRO
 import static com.byteflow.learnffmpeg.media.FFMediaPlayer.MSG_DECODER_READY;
 import static com.byteflow.learnffmpeg.media.FFMediaPlayer.MSG_DECODING_TIME;
 import static com.byteflow.learnffmpeg.media.FFMediaPlayer.MSG_REQUEST_RENDER;
-import static com.byteflow.learnffmpeg.media.FFMediaPlayer.VIDEO_GL_RENDER;
 import static com.byteflow.learnffmpeg.media.FFMediaPlayer.VIDEO_RENDER_3D_VR;
-import static com.byteflow.learnffmpeg.media.FFMediaPlayer.VIDEO_RENDER_OPENGL;
 import static com.byteflow.learnffmpeg.media.FFMediaPlayer.VR_3D_GL_RENDER;
 
 public class VRMediaPlayerActivity extends AppCompatActivity implements GLSurfaceView.Renderer, FFMediaPlayer.EventCallback, MyGLSurfaceView.OnGestureCallback, SensorEventListener {
     private static final String TAG = "MediaPlayerActivity";
     private static final String[] REQUEST_PERMISSIONS = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-    };
+            };
     private static final int PERMISSION_REQUEST_CODE = 1;
     private MyGLSurfaceView mGLSurfaceView = null;
     private FFMediaPlayer mMediaPlayer = null;
@@ -50,6 +47,7 @@ public class VRMediaPlayerActivity extends AppCompatActivity implements GLSurfac
     private boolean mIsTouch = false;
     private SensorManager mSensorManager;
     private String mVideoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/byteflow/vr.mp4";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +73,7 @@ public class VRMediaPlayerActivity extends AppCompatActivity implements GLSurfac
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 Log.d(TAG, "onStopTrackingTouch() called with: progress = [" + seekBar.getProgress() + "]");
-                if(mMediaPlayer != null) {
+                if (mMediaPlayer != null) {
                     mMediaPlayer.seekToPosition(mSeekBar.getProgress());
                     mIsTouch = false;
                 }
@@ -99,7 +97,7 @@ public class VRMediaPlayerActivity extends AppCompatActivity implements GLSurfac
         if (!hasPermissionsGranted(REQUEST_PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, REQUEST_PERMISSIONS, PERMISSION_REQUEST_CODE);
         } else {
-            if(mMediaPlayer != null)
+            if (mMediaPlayer != null)
                 mMediaPlayer.play();
         }
         Toast.makeText(this, "拖动画面感受 3D 效果", Toast.LENGTH_SHORT).show();
@@ -113,7 +111,7 @@ public class VRMediaPlayerActivity extends AppCompatActivity implements GLSurfac
                 Toast.makeText(this, "We need the permission: WRITE_EXTERNAL_STORAGE", Toast.LENGTH_SHORT).show();
             } else {
                 //if(mMediaPlayer != null)
-                    //mMediaPlayer.play();
+                //mMediaPlayer.play();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -124,14 +122,14 @@ public class VRMediaPlayerActivity extends AppCompatActivity implements GLSurfac
     protected void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
-        if(mMediaPlayer != null)
+        if (mMediaPlayer != null)
             mMediaPlayer.pause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mMediaPlayer != null)
+        if (mMediaPlayer != null)
             mMediaPlayer.unInit();
     }
 
@@ -169,7 +167,7 @@ public class VRMediaPlayerActivity extends AppCompatActivity implements GLSurfac
                         mGLSurfaceView.requestRender();
                         break;
                     case MSG_DECODING_TIME:
-                        if(!mIsTouch)
+                        if (!mIsTouch)
                             mSeekBar.setProgress((int) msgValue);
                         break;
                     default:
@@ -183,7 +181,7 @@ public class VRMediaPlayerActivity extends AppCompatActivity implements GLSurfac
     private void onDecoderReady() {
         int videoWidth = (int) mMediaPlayer.getMediaParams(MEDIA_PARAM_VIDEO_WIDTH);
         int videoHeight = (int) mMediaPlayer.getMediaParams(MEDIA_PARAM_VIDEO_HEIGHT);
-        if(videoHeight * videoWidth != 0)
+        if (videoHeight * videoWidth != 0)
             mGLSurfaceView.setAspectRatio(videoWidth, videoHeight);
 
         int duration = (int) mMediaPlayer.getMediaParams(MEDIA_PARAM_VIDEO_DURATION);
@@ -205,7 +203,7 @@ public class VRMediaPlayerActivity extends AppCompatActivity implements GLSurfac
 
     @Override
     public void onGesture(int xRotateAngle, int yRotateAngle, float scale) {
-         FFMediaPlayer.native_SetGesture(VR_3D_GL_RENDER, xRotateAngle, yRotateAngle, scale);
+        FFMediaPlayer.native_SetGesture(VR_3D_GL_RENDER, xRotateAngle, yRotateAngle, scale);
     }
 
     @Override

@@ -6,9 +6,9 @@ public abstract class MediaRecorderContext {
     public static final int IMAGE_FORMAT_NV12 = 0x03;
     public static final int IMAGE_FORMAT_I420 = 0x04;
 
-    public static final int RECORDER_TYPE_SINGLE_VIDEO   = 0; //仅录制视频
-    public static final int RECORDER_TYPE_SINGLE_AUDIO   = 1; //仅录制音频
-    public static final int RECORDER_TYPE_AV             = 2; //同时录制音频和视频,打包成 MP4 文件
+    public static final int RECORDER_TYPE_SINGLE_VIDEO = 0; //仅录制视频
+    public static final int RECORDER_TYPE_SINGLE_AUDIO = 1; //仅录制音频
+    public static final int RECORDER_TYPE_AV = 2; //同时录制音频和视频,打包成 MP4 文件
 
     private long mNativeContextHandle;
 
